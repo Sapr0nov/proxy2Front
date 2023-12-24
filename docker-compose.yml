@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx
+    build: ./nginx
+    network_mode: host
+    volumes:
+      - ./nginx/config/sites-enabled:/etc/nginx/sites-enabled
+      - ./nginx/config/logs:/home/logs
+      - ./routes/:/var/www/html
+    depends_on:
+      - php-fpm
+  
+  php-fpm:
+    image: php:fpm
+    build: php-fpm
+    ports:
+      - 9000:9000
+    volumes:
+      - ./routes/:/var/www/html
+
+  # front-service:
+  #   build:
+  #     context: ${WORKDIR}/front-service
+  #     dockerfile: ./docker/Dockerfile
+  #     args:
+  #       build_env: devel
+  #   entrypoint: sh -c "yarn global add pm2 env-cmd && yarn install && yarn run dev"
+  #   environment:
+  #     PORT: "3000"
+  #   ports:
+  #     - 3000:3000
+  #     - 24679:24679
+  #   volumes:
+  #     - ${WORKDIR}/front-service:/var/www
