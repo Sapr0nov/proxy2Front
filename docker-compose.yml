@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx
+    build: ./nginx
+    network_mode: host
+    volumes:
+      - ./nginx/config/sites-enabled:/etc/nginx/sites-enabled
+      - ./nginx/config/logs:/home/logs
+      - ./routes/:/var/www/html
+    depends_on:
+      - php-fpm
+  
+  php-fpm:
+    image: php:fpm
+    build: php-fpm
+    ports:
+      - 9000:9000
+    volumes:
+      - ./routes/:/var/www/html

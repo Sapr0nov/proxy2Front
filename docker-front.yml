@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  front-service:
+    build:
+      context: ${WORKDIR}/front-service
+      dockerfile: ./docker/Dockerfile
+      args:
+        build_env: devel
+    entrypoint: sh -c "yarn global add pm2 env-cmd && yarn install && yarn run dev"
+    environment:
+      PORT: "3000"
+    ports:
+      - 3000:3000
+    volumes:
+      - ${WORKDIR}/front-service:/var/www
