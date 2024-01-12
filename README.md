@@ -65,7 +65,7 @@ cd testStand
 ```
 Клонировать ветку репозитория в папку (при необходимости ввести пароль от ssh ключа)
 ```shell script
-git clone -b v3.0-multi-front ssh://git@devgit.aa.digital:8020/s.sapronov/test.git && cd test
+git clone https://github.com/Sapr0nov/proxy2Front/test.git && cd test
 ```
 
 Копируем файл настроек (при необходимости вносим корректировки)
